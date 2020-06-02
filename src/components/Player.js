@@ -5,17 +5,37 @@ const Player = ({ videoId, audio }) => {
   const audioObject = useRef();
   const [ youtubeObject, setYoutubeObject ] = useState(false);
   const [ audioReady, setAudioReady ] = useState(false);
+  const [ canPlay, setCanPlay ] = useState(false);
+  const [ playing, setPlaying ] = useState(false);
+
+  useEffect(() => {
+    setCanPlay(false);
+    setPlaying(false);
+    
+    //Preload audio
+    const player = new Audio(audio);
+    player.oncanplay = () => setAudioReady(true);
+    player.load();
+    audioObject.current = player;
+  }, [audio])
 
   useEffect(() => {
     if(youtubeObject && audioReady) {
-      youtubeObject.mute();
-      youtubeObject.playVideo();
+      setCanPlay(true);
     }
   }, [youtubeObject, audioReady]);
 
+  const play = () => {
+    audioObject.current.play();
+    youtubeObject.mute();
+    youtubeObject.playVideo();
+    setCanPlay(false);
+    setPlaying(true);
+  }
+
   const opts = {
     playerVars: {
-      autoplay: 1,
+      autoplay: 0,
       loop: 1,
       modestbranding: 1,
       rel: 0,
@@ -24,9 +44,11 @@ const Player = ({ videoId, audio }) => {
   };
 
   return <>
-    <audio ref={audioObject} controls={false} src={audio} onCanPlay={() => setAudioReady(true)}></audio>
     <div className="video-container">
+      { !canPlay && !playing && <div className="loading"></div> }
+      { canPlay && !playing && <div className="play" onClick={play}></div> }
       <YouTube
+        className={canPlay || playing ? 'loaded' : ''}
         videoId={videoId}
         opts={opts}
         onReady={event => {
@@ -36,6 +58,7 @@ const Player = ({ videoId, audio }) => {
           if(data === 1) {
             audioObject.current.currentTime = youtubeObject.getCurrentTime();
             audioObject.current.play();
+            youtubeObject.mute();
           } else {
             audioObject.current.pause();
           }
