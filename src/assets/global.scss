@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Muli:ital,wght@0,300;1,400&display=swap');
+
+:root {
+  --bg: #151515;
+  --fredoka: "Fredoka One";
+  --muli: Muli;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
+  font-family: inherit;
+  outline: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale  
+}
+
+input, select, button, textarea {
+  border: 0 none;
+  background-color: #FFF;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+select, input {
+  font-size: 1.6em;
+  border-radius: 2em;
+  padding: 0.5em 1em;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  background-color: var(--bg);
+  color: #FFF;
+  font-size: 1.6em;
+  padding: 0.5em 1.5em;
+  border-radius: 2em;
+}
+
+body {
+  font-size: 62.5%;
+  font-family: var(--muli);
+  color: #FFF;
+  background-color: var(--bg);
+  font-weight: 300;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  min-height: 100vh;
+}
+
+#main {
+  padding: 0 2em;
+}
+
+h1 {
+  font-family: var(--fredoka);
+  text-align: center;
+  font-size: 5em;
+  font-weight: normal;
+  margin: 0.2em 0;
+}
+
+.load-video {
+  position: relative;
+  font-size: 1.5em;
+  max-width: 40em;
+  margin: 0 auto;
+
+  input {
+    width: 100%;
+    padding-right: 6em;
+    box-sizing: border-box;
+  }
+
+  button {
+    position: absolute;
+    right: 0.4em;
+    font-size: 1.2em;
+    margin-top: 0.4em;
+  }
+}
+
+.status, .error {
+  text-align: center;
+  margin: 1em 0;
+  font-size: 2em;
+}
+
+.error {
+  color: red;
+}
+
+.video-container {
+  margin-top: 2em;
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
