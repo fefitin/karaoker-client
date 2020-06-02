@@ -19,7 +19,7 @@ const Karaoker = () => {
     KaraokerService
       .download(url)
       .then(videoId => {
-        setStatus("karaok'ing");
+        setStatus('Procesando video, puede demorar unos minutos');
         setVideoId(videoId);
       }).catch(() => {
         setError('Error al descargar video.');
