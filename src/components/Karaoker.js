@@ -15,6 +15,8 @@ const Karaoker = () => {
   const download = url => {
     setStatus('Descargando video');
     setError('');
+    setVideoId('');
+    setFile('');
     
     KaraokerService
       .download(url)
