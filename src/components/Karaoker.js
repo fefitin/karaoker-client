@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactGA from 'react-ga';
 import Form from './Form';
 import KaraokerService from './../services/KaraokerService';
 import Status from './Status';
@@ -17,7 +18,15 @@ const Karaoker = () => {
     setError('');
     setVideoId('');
     setFile('');
+
+    //Analytics event
+    ReactGA.event({
+      category: 'Video',
+      action: 'Download',
+      label: url
+    });
     
+    //Download file
     KaraokerService
       .download(url)
       .then(videoId => {
